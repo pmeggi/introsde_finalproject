@@ -16,7 +16,13 @@ The application is devolved according to the following architetcure:
 
 ## Module Description
 The vLifeCoach Architecture is composed by following components:
-* Data
+* Data Services:
+  
+* Business Logic Services:
+
+* Process Centric Services:
+
+* User Interface:
 
 
 
