@@ -8,7 +8,7 @@ This project implements a composed web service application that allows an regist
 * Minimum walking steps per day
 * Minimum sleeping hours per day
 
-The application also allows a person reminders (based on daily, weekly, monthly or specific date type). The "tracking" module of the application also informs the person about his/her daily events as “reminders of the day”, gives some feedback on the progress toward achieving goals and based on that suggests some activities and persuasive strategies.
+The application also allows a person reminders (based on daily, weekly, monthly or specific date type). The "tracking" module of the application also informs the person about his/her daily events as “reminders of the day”, gives some feedback on the progress toward achieving goals.
 
 ## Architecture
 The application is devolved according to the following architetcure:
