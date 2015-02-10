@@ -11,8 +11,8 @@ This is the readme.md file of final Project of Introduction to Service Design an
 
 ## Author
 This project was developed by:<br><br>
-&nbsp&nbspPinki Meggi<br>
-&nbsp&nbspMatricula No.<br>
-&nbsp&nbspEmail: pinki.meggi@gmail.com<br>
+&nbsp;&nbsp;Pinki Meggi<br>
+&nbsp;&nbsp;Matricula No. 136133<br>
+&nbsp;&nbsp;Email: pinki.meggi@gmail.com<br>
 
 
