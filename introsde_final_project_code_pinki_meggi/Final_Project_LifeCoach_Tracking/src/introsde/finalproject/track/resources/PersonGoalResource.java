@@ -121,7 +121,7 @@ public class PersonGoalResource {
     				body=body.concat(g1.getMeasure()+" "+g1.getValue()).concat("\n");
     			}
     			//send email to the person informing about the achieved goals of today
-    			//storage.sendPersonEmail(person.getEmail(), "TODAYS ACHIEVED GOALS", body);
+    			storage.sendPersonEmail(person.getEmail(), "TODAYS ACHIEVED GOALS", body);
     	        res = Response.ok().entity(new GenericEntity<List<Goal1>>(result1){}).build();
     		}         
         }

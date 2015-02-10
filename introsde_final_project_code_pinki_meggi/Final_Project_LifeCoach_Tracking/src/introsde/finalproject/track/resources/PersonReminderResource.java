@@ -116,11 +116,13 @@ public class PersonReminderResource {
     				Reminder1 r1 = new Reminder1(r.getIdReminder(),r.getDescription(),r.getTypeReminder(),r.getWDay(),r.getMDay(),r.getSDate(),r.getStatus(),r.getDateRegistered());
     	 	    	System.out.println(r1);
     				result1.add(r1);
-    				body=body.concat(r1.getDescription()).concat("\n");
+    				body+=r1.getDescription();
+    				body+="\n";
     			}
     			//send email to the person informing about the reminders of today
-    			//storage.sendPersonEmail(person.getEmail(), "TODAYS REMINDERS", body);
-    	        res = Response.ok().entity(new GenericEntity<List<Reminder1>>(result1){}).build();
+    			storage.sendPersonEmail(person.getEmail(), "TODAYS REMINDERS", body);
+    			System.out.print(body);
+    			res = Response.ok().entity(new GenericEntity<List<Reminder1>>(result1){}).build();
     		}         
         }
         return res;
