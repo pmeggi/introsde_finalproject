@@ -8,6 +8,7 @@ This is the readme.md file of final Project of Introduction to Service Design an
 ## Module Description
 
 ## Link to Documentation
+The link to vLifeCoachService can be found here.
 
 ## Author
 This project was developed by:<br><br>
