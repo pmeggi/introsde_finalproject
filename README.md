@@ -12,7 +12,7 @@ The application also allows a person reminders (based on daily, weekly, monthly 
 
 ## Architecture
 The application is devolved according to the following architetcure:
-![Alt text](architecture.png?raw=true "vLifeCoach Architecture")
+![Alt text](architecture1.png?raw=true "vLifeCoach Architecture")
 
 ## Module Description
 The vLifeCoach Architecture is composed by following components:
