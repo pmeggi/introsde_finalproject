@@ -20,18 +20,18 @@ The vLifeCoach Architecture is composed by following components:
 
   
 * **Business Logic Services (implemented using REST Technology):**
-  myVirtualCoachPeopleService is a web service that serves all requests related to person and person measurements;
-  myVirtualCoachGoalService is a web service that serves all requests related to person goals;
-  myVirtualCoachTaskService is a web service that serves all requests related to person reminders;
-  myVirtualCoachTrackingService is a web service that serves all requests related to person goals/reminders tracking;
+  <br>**vLifeCoachPeopleService** is a web service that serves all requests related to person and person measurements;
+  <br>**vLifeCoachGoalService** is a web service that serves all requests related to person goals;
+  <br>**vLifeCoachTaskService** is a web service that serves all requests related to person reminders;
+  <br>**vLifeCoachTrackingService** is a web service that serves all requests related to person goals/reminders tracking;
   All these services receive requests from the Process Centric Service - vLifeCoachService and get data from the data layer    and processes it to send results back.
 
 * **Process Centric Services (implemented using REST Technology):**
-  vLifeCooachService is a web service that serve all requests coming from console application myVirtualCoachApp and       redirecting the request to proper Business Logic Service.
+  <br>**vLifeCoachService** is a web service that serve all requests coming from console application myVirtualCoachApp and       redirecting the request to proper Business Logic Service.
 
 
 * **User Interface (Console Java Application):**
-  myVirtualCoachApp is an client console java application which calls the Process Centric Service - vLifeCoachService to provide to the users with the application functionalities.
+  <br>**myVirtualCoachApp** is an client console java application which calls the Process Centric Service - vLifeCoachService to provide to the users with the application functionalities.
 
 
 
