@@ -1,10 +1,15 @@
 package introsde.finalproject.track.resources;
 
+import introsde.finalproject.soap.Goal;
+import introsde.finalproject.soap.MeasureHistory;
 import introsde.finalproject.soap.Person;
-import introsde.finalproject.soap.Reminder;
 import introsde.finalproject.storage.soap.Storage;
 import introsde.finalproject.storage.soap.StorageService;
-import introsde.finalproject.track.model.Reminder1;
+
+
+
+
+import introsde.finalproject.track.model.Goal1;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -26,7 +31,7 @@ import javax.ws.rs.core.UriInfo;
 
 @Stateless // only used if the the application is deployed in a Java EE container
 @LocalBean // only used if the the application is deployed in a Java EE container
-public class PersonReminderResource {
+public class PersonGoalResource {
 	
 	@Context
     UriInfo uriInfo;
@@ -35,23 +40,23 @@ public class PersonReminderResource {
 	int id;
 
 
-	public PersonReminderResource(UriInfo uriInfo, Request request,int id) {
+	public PersonGoalResource(UriInfo uriInfo, Request request,int id) {
 	        this.uriInfo = uriInfo;
 	        this.request = request;
 	        this.id = id;
 	}
 		
-	// REQUEST #1 - GET /reminders/{id} - return the today reminders of person with {id} 
+	// REQUEST #1 - GET /goals/{id} - return the today reminders of person with {id} 
     // Application integration
     @GET
     @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-    public Response getPersonReminders() {
+    public Response getPersonGoals() {
     	Response res;
     	
     	StorageService service = new StorageService();
         Storage storage = service.getStorageImplPort();
         
-        System.out.println("Reading the reminders for person with ID="+id);
+        System.out.println("Reading the achieved goals for person with ID="+id);
         Person person=storage.readPersonInfo(new Long(this.id));
         
         
@@ -67,60 +72,57 @@ public class PersonReminderResource {
         	Date date = new Date();
         	System.out.println(dateFormat.format(date));
         	
-        	List<Reminder> result = new ArrayList<Reminder>();
+        	List<Goal> result = new ArrayList<Goal>();
         	
-        	//specific date reminder
-        	List<Reminder> rList=storage.readPersonRemindersByDate(new Long(this.id),dateFormat.format(date));
-        	for(int i=0;i<rList.size();i++)
-        	{
-        		System.out.println(rList.get(i));
-        		result.add(rList.get(i));
-        	}
+        	// get list of person goals
+        	List<Goal> gList=storage.readPersonGoals(new Long(this.id));
         	
-        	//daily reminder
-        	List<Reminder> r1List=storage.readPersonReminders(new Long(this.id));
-        	for(int i=0;i<r1List.size();i++)
+        	for(int i=0;i<gList.size();i++)
         	{
-        		Reminder r = r1List.get(i);
-        		if (r.getTypeReminder().equals("daily"))
-        			result.add(r);
-        		else
-        			if (r.getTypeReminder().equals("weekly"))
+        		//for each defined goal, check if it is daily goal, then get the Today measure, ad check if goal achieved
+        		System.out.println(gList.get(i));
+        		Goal g = gList.get(i);
+        		if (g.getGoalType().getType().equals("daily"))
+        		{
+        			MeasureHistory m = storage.readPersonMeasurementByDate(person.getIdPerson(),g.getGoalType().getMeasureType().getMeasure(), dateFormat.format(date));
+        			if (m!=null)
         			{
-        				String wDay = r.getWDay();
-        				if (wDay.equals(getTodaysDayOfWeek()))
-        					result.add(r);
-        	     	}
-        			else
-        				if (r.getTypeReminder().equals("monthly"))
-            			{
-        					dateFormat = new SimpleDateFormat("dd");
-        		        	
-        					String mDay = r.getMDay();
-        					if (mDay.equals(dateFormat.format(date)))
-        						result.add(r);
+        				if (g.getGoalType().getValueType().equals("minimum"))
+        				{
+        					if(Integer.parseInt(m.getMeasureValue())>=Integer.parseInt(g.getGoalValue()))
+        						result.add(g);
         				}
-           	}
+        				else
+        					if (g.getGoalType().getValueType().equals("maximum"))
+            				{
+            					if(Integer.parseInt(m.getMeasureValue())<=Integer.parseInt(g.getGoalValue()))
+            						result.add(g);
+            				}
+        			}
+        		}
+        		
+        	}	
         	
         	if (result.size() == 0)
     		{
-    			System.out.println("Get: Reminders History of Person with ID=" + id + " not found");
+    			System.out.println("Get: GOALS ACHIEVED of Person with ID=" + id + " not found");
     			res = Response.status(404).build();
     		}
     		else
     		{
     			String body = "";
-    			List<Reminder1> result1 = new ArrayList<Reminder1>();
+    			List<Goal1> result1 = new ArrayList<Goal1>();
     			for (int i=0; i<result.size();i++){
-    				Reminder r = result.get(i);
-    				Reminder1 r1 = new Reminder1(r.getIdReminder(),r.getDescription(),r.getTypeReminder(),r.getWDay(),r.getMDay(),r.getSDate(),r.getStatus(),r.getDateRegistered());
-    	 	    	System.out.println(r1);
-    				result1.add(r1);
-    				body=body.concat(r1.getDescription()).concat("\n");
+    				Goal g = result.get(i);
+    				Goal1 g1 = new Goal1(g.getIdGoal(),g.getGoalValue(),g.getGoalType().getMeasureType().getMeasure(),g.getGoalType().getType(),g.getDateRegistered(),g.getStatus());
+    	 	    	
+    	 	    	System.out.println(g1);
+    				result1.add(g1);
+    				body=body.concat(g1.getMeasure()+" "+g1.getValue()).concat("\n");
     			}
-    			//send email to the person informing about the reminders of today
-    			//storage.sendPersonEmail(person.getEmail(), "TODAYS REMINDERS", body);
-    	        res = Response.ok().entity(new GenericEntity<List<Reminder1>>(result1){}).build();
+    			//send email to the person informing about the achieved goals of today
+    			//storage.sendPersonEmail(person.getEmail(), "TODAYS ACHIEVED GOALS", body);
+    	        res = Response.ok().entity(new GenericEntity<List<Goal1>>(result1){}).build();
     		}         
         }
         return res;

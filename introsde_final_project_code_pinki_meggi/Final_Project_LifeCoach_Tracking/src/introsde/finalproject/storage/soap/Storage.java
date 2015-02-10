@@ -34,6 +34,27 @@ public interface Storage {
 
     /**
      * 
+     * @param measureI
+     * @param measureType
+     * @param personId
+     * @return
+     *     returns introsde.finalproject.soap.MeasureHistory
+     */
+    @WebMethod
+    @WebResult(name = "measure", targetNamespace = "")
+    @RequestWrapper(localName = "registerPersonMeasure", targetNamespace = "http://soap.storage.finalproject.introsde/", className = "introsde.finalproject.storage.soap.RegisterPersonMeasure")
+    @ResponseWrapper(localName = "registerPersonMeasureResponse", targetNamespace = "http://soap.storage.finalproject.introsde/", className = "introsde.finalproject.storage.soap.RegisterPersonMeasureResponse")
+    @Action(input = "http://soap.storage.finalproject.introsde/Storage/registerPersonMeasureRequest", output = "http://soap.storage.finalproject.introsde/Storage/registerPersonMeasureResponse")
+    public MeasureHistory registerPersonMeasure(
+        @WebParam(name = "personId", targetNamespace = "")
+        Long personId,
+        @WebParam(name = "measureType", targetNamespace = "")
+        String measureType,
+        @WebParam(name = "measure_i", targetNamespace = "")
+        MeasureHistory measureI);
+
+    /**
+     * 
      * @param personI
      * @return
      *     returns introsde.finalproject.soap.Person
@@ -64,27 +85,6 @@ public interface Storage {
 
     /**
      * 
-     * @param measureI
-     * @param measureType
-     * @param personId
-     * @return
-     *     returns introsde.finalproject.soap.MeasureHistory
-     */
-    @WebMethod
-    @WebResult(name = "measure", targetNamespace = "")
-    @RequestWrapper(localName = "registerPersonMeasure", targetNamespace = "http://soap.storage.finalproject.introsde/", className = "introsde.finalproject.storage.soap.RegisterPersonMeasure")
-    @ResponseWrapper(localName = "registerPersonMeasureResponse", targetNamespace = "http://soap.storage.finalproject.introsde/", className = "introsde.finalproject.storage.soap.RegisterPersonMeasureResponse")
-    @Action(input = "http://soap.storage.finalproject.introsde/Storage/registerPersonMeasureRequest", output = "http://soap.storage.finalproject.introsde/Storage/registerPersonMeasureResponse")
-    public MeasureHistory registerPersonMeasure(
-        @WebParam(name = "personId", targetNamespace = "")
-        Long personId,
-        @WebParam(name = "measureType", targetNamespace = "")
-        String measureType,
-        @WebParam(name = "measure_i", targetNamespace = "")
-        MeasureHistory measureI);
-
-    /**
-     * 
      * @return
      *     returns java.util.List<introsde.finalproject.soap.GoalType>
      */
@@ -94,36 +94,6 @@ public interface Storage {
     @ResponseWrapper(localName = "readGoalTypesResponse", targetNamespace = "http://soap.storage.finalproject.introsde/", className = "introsde.finalproject.storage.soap.ReadGoalTypesResponse")
     @Action(input = "http://soap.storage.finalproject.introsde/Storage/readGoalTypesRequest", output = "http://soap.storage.finalproject.introsde/Storage/readGoalTypesResponse")
     public List<GoalType> readGoalTypes();
-
-    /**
-     * 
-     * @param measureId
-     * @return
-     *     returns int
-     */
-    @WebMethod
-    @WebResult(name = "result", targetNamespace = "")
-    @RequestWrapper(localName = "removePersonMeasurement", targetNamespace = "http://soap.storage.finalproject.introsde/", className = "introsde.finalproject.storage.soap.RemovePersonMeasurement")
-    @ResponseWrapper(localName = "removePersonMeasurementResponse", targetNamespace = "http://soap.storage.finalproject.introsde/", className = "introsde.finalproject.storage.soap.RemovePersonMeasurementResponse")
-    @Action(input = "http://soap.storage.finalproject.introsde/Storage/removePersonMeasurementRequest", output = "http://soap.storage.finalproject.introsde/Storage/removePersonMeasurementResponse")
-    public int removePersonMeasurement(
-        @WebParam(name = "measureId", targetNamespace = "")
-        Long measureId);
-
-    /**
-     * 
-     * @param measure
-     * @return
-     *     returns introsde.finalproject.soap.MeasureType
-     */
-    @WebMethod
-    @WebResult(name = "mType", targetNamespace = "")
-    @RequestWrapper(localName = "readMeasureType", targetNamespace = "http://soap.storage.finalproject.introsde/", className = "introsde.finalproject.storage.soap.ReadMeasureType")
-    @ResponseWrapper(localName = "readMeasureTypeResponse", targetNamespace = "http://soap.storage.finalproject.introsde/", className = "introsde.finalproject.storage.soap.ReadMeasureTypeResponse")
-    @Action(input = "http://soap.storage.finalproject.introsde/Storage/readMeasureTypeRequest", output = "http://soap.storage.finalproject.introsde/Storage/readMeasureTypeResponse")
-    public MeasureType readMeasureType(
-        @WebParam(name = "measure", targetNamespace = "")
-        String measure);
 
     /**
      * 
@@ -151,42 +121,48 @@ public interface Storage {
 
     /**
      * 
-     * @param measure
-     * @param goalU
      * @param personId
-     * @param type
      * @return
-     *     returns introsde.finalproject.soap.Goal
+     *     returns java.util.List<introsde.finalproject.soap.Reminder>
      */
     @WebMethod
-    @WebResult(name = "goal", targetNamespace = "")
-    @RequestWrapper(localName = "editPersonGoal", targetNamespace = "http://soap.storage.finalproject.introsde/", className = "introsde.finalproject.storage.soap.EditPersonGoal")
-    @ResponseWrapper(localName = "editPersonGoalResponse", targetNamespace = "http://soap.storage.finalproject.introsde/", className = "introsde.finalproject.storage.soap.EditPersonGoalResponse")
-    @Action(input = "http://soap.storage.finalproject.introsde/Storage/editPersonGoalRequest", output = "http://soap.storage.finalproject.introsde/Storage/editPersonGoalResponse")
-    public Goal editPersonGoal(
+    @WebResult(name = "reminders-history", targetNamespace = "")
+    @RequestWrapper(localName = "readPersonReminders", targetNamespace = "http://soap.storage.finalproject.introsde/", className = "introsde.finalproject.storage.soap.ReadPersonReminders")
+    @ResponseWrapper(localName = "readPersonRemindersResponse", targetNamespace = "http://soap.storage.finalproject.introsde/", className = "introsde.finalproject.storage.soap.ReadPersonRemindersResponse")
+    @Action(input = "http://soap.storage.finalproject.introsde/Storage/readPersonRemindersRequest", output = "http://soap.storage.finalproject.introsde/Storage/readPersonRemindersResponse")
+    public List<Reminder> readPersonReminders(
         @WebParam(name = "personId", targetNamespace = "")
-        Long personId,
-        @WebParam(name = "measure", targetNamespace = "")
-        String measure,
-        @WebParam(name = "type", targetNamespace = "")
-        String type,
-        @WebParam(name = "goal_u", targetNamespace = "")
-        Goal goalU);
+        Long personId);
+
+    /**
+     * 
+     * @return
+     *     returns java.lang.String
+     */
+    @WebMethod
+    @WebResult(name = "result", targetNamespace = "")
+    @RequestWrapper(localName = "getRandomQuote", targetNamespace = "http://soap.storage.finalproject.introsde/", className = "introsde.finalproject.storage.soap.GetRandomQuote")
+    @ResponseWrapper(localName = "getRandomQuoteResponse", targetNamespace = "http://soap.storage.finalproject.introsde/", className = "introsde.finalproject.storage.soap.GetRandomQuoteResponse")
+    @Action(input = "http://soap.storage.finalproject.introsde/Storage/getRandomQuoteRequest", output = "http://soap.storage.finalproject.introsde/Storage/getRandomQuoteResponse")
+    public String getRandomQuote();
 
     /**
      * 
      * @param personId
+     * @param date
      * @return
-     *     returns java.util.List<introsde.finalproject.soap.Goal>
+     *     returns java.util.List<introsde.finalproject.soap.Reminder>
      */
     @WebMethod
-    @WebResult(name = "goal-history", targetNamespace = "")
-    @RequestWrapper(localName = "readPersonGoals", targetNamespace = "http://soap.storage.finalproject.introsde/", className = "introsde.finalproject.storage.soap.ReadPersonGoals")
-    @ResponseWrapper(localName = "readPersonGoalsResponse", targetNamespace = "http://soap.storage.finalproject.introsde/", className = "introsde.finalproject.storage.soap.ReadPersonGoalsResponse")
-    @Action(input = "http://soap.storage.finalproject.introsde/Storage/readPersonGoalsRequest", output = "http://soap.storage.finalproject.introsde/Storage/readPersonGoalsResponse")
-    public List<Goal> readPersonGoals(
+    @WebResult(name = "reminder", targetNamespace = "")
+    @RequestWrapper(localName = "readPersonRemindersByDate", targetNamespace = "http://soap.storage.finalproject.introsde/", className = "introsde.finalproject.storage.soap.ReadPersonRemindersByDate")
+    @ResponseWrapper(localName = "readPersonRemindersByDateResponse", targetNamespace = "http://soap.storage.finalproject.introsde/", className = "introsde.finalproject.storage.soap.ReadPersonRemindersByDateResponse")
+    @Action(input = "http://soap.storage.finalproject.introsde/Storage/readPersonRemindersByDateRequest", output = "http://soap.storage.finalproject.introsde/Storage/readPersonRemindersByDateResponse")
+    public List<Reminder> readPersonRemindersByDate(
         @WebParam(name = "personId", targetNamespace = "")
-        Long personId);
+        Long personId,
+        @WebParam(name = "date", targetNamespace = "")
+        String date);
 
     /**
      * 
@@ -217,66 +193,6 @@ public interface Storage {
 
     /**
      * 
-     * @param content
-     * @param email
-     * @param subject
-     * @return
-     *     returns int
-     */
-    @WebMethod
-    @WebResult(name = "result", targetNamespace = "")
-    @RequestWrapper(localName = "sendPersonEmail", targetNamespace = "http://soap.storage.finalproject.introsde/", className = "introsde.finalproject.storage.soap.SendPersonEmail")
-    @ResponseWrapper(localName = "sendPersonEmailResponse", targetNamespace = "http://soap.storage.finalproject.introsde/", className = "introsde.finalproject.storage.soap.SendPersonEmailResponse")
-    @Action(input = "http://soap.storage.finalproject.introsde/Storage/sendPersonEmailRequest", output = "http://soap.storage.finalproject.introsde/Storage/sendPersonEmailResponse")
-    public int sendPersonEmail(
-        @WebParam(name = "email", targetNamespace = "")
-        String email,
-        @WebParam(name = "subject", targetNamespace = "")
-        String subject,
-        @WebParam(name = "content", targetNamespace = "")
-        String content);
-
-    /**
-     * 
-     * @param measureType
-     * @param personId
-     * @param measurehistoryU
-     * @return
-     *     returns introsde.finalproject.soap.MeasureHistory
-     */
-    @WebMethod
-    @WebResult(name = "measurehistory", targetNamespace = "")
-    @RequestWrapper(localName = "editPersonMeasurement", targetNamespace = "http://soap.storage.finalproject.introsde/", className = "introsde.finalproject.storage.soap.EditPersonMeasurement")
-    @ResponseWrapper(localName = "editPersonMeasurementResponse", targetNamespace = "http://soap.storage.finalproject.introsde/", className = "introsde.finalproject.storage.soap.EditPersonMeasurementResponse")
-    @Action(input = "http://soap.storage.finalproject.introsde/Storage/editPersonMeasurementRequest", output = "http://soap.storage.finalproject.introsde/Storage/editPersonMeasurementResponse")
-    public MeasureHistory editPersonMeasurement(
-        @WebParam(name = "personId", targetNamespace = "")
-        Long personId,
-        @WebParam(name = "measureType", targetNamespace = "")
-        String measureType,
-        @WebParam(name = "measurehistory_u", targetNamespace = "")
-        MeasureHistory measurehistoryU);
-
-    /**
-     * 
-     * @param reminderU
-     * @param personId
-     * @return
-     *     returns introsde.finalproject.soap.Reminder
-     */
-    @WebMethod
-    @WebResult(name = "reminder", targetNamespace = "")
-    @RequestWrapper(localName = "editPersonReminder", targetNamespace = "http://soap.storage.finalproject.introsde/", className = "introsde.finalproject.storage.soap.EditPersonReminder")
-    @ResponseWrapper(localName = "editPersonReminderResponse", targetNamespace = "http://soap.storage.finalproject.introsde/", className = "introsde.finalproject.storage.soap.EditPersonReminderResponse")
-    @Action(input = "http://soap.storage.finalproject.introsde/Storage/editPersonReminderRequest", output = "http://soap.storage.finalproject.introsde/Storage/editPersonReminderResponse")
-    public Reminder editPersonReminder(
-        @WebParam(name = "personId", targetNamespace = "")
-        Long personId,
-        @WebParam(name = "reminder_u", targetNamespace = "")
-        Reminder reminderU);
-
-    /**
-     * 
      * @param reminderId
      * @param personId
      * @return
@@ -295,84 +211,27 @@ public interface Storage {
 
     /**
      * 
+     * @param measure
+     * @param goalU
      * @param personId
-     * @return
-     *     returns java.util.List<introsde.finalproject.soap.Reminder>
-     */
-    @WebMethod
-    @WebResult(name = "reminders-history", targetNamespace = "")
-    @RequestWrapper(localName = "readPersonReminders", targetNamespace = "http://soap.storage.finalproject.introsde/", className = "introsde.finalproject.storage.soap.ReadPersonReminders")
-    @ResponseWrapper(localName = "readPersonRemindersResponse", targetNamespace = "http://soap.storage.finalproject.introsde/", className = "introsde.finalproject.storage.soap.ReadPersonRemindersResponse")
-    @Action(input = "http://soap.storage.finalproject.introsde/Storage/readPersonRemindersRequest", output = "http://soap.storage.finalproject.introsde/Storage/readPersonRemindersResponse")
-    public List<Reminder> readPersonReminders(
-        @WebParam(name = "personId", targetNamespace = "")
-        Long personId);
-
-    /**
-     * 
-     * @param goalId
-     * @param personId
+     * @param type
      * @return
      *     returns introsde.finalproject.soap.Goal
      */
     @WebMethod
     @WebResult(name = "goal", targetNamespace = "")
-    @RequestWrapper(localName = "readPersonGoal", targetNamespace = "http://soap.storage.finalproject.introsde/", className = "introsde.finalproject.storage.soap.ReadPersonGoal")
-    @ResponseWrapper(localName = "readPersonGoalResponse", targetNamespace = "http://soap.storage.finalproject.introsde/", className = "introsde.finalproject.storage.soap.ReadPersonGoalResponse")
-    @Action(input = "http://soap.storage.finalproject.introsde/Storage/readPersonGoalRequest", output = "http://soap.storage.finalproject.introsde/Storage/readPersonGoalResponse")
-    public Goal readPersonGoal(
+    @RequestWrapper(localName = "editPersonGoal", targetNamespace = "http://soap.storage.finalproject.introsde/", className = "introsde.finalproject.storage.soap.EditPersonGoal")
+    @ResponseWrapper(localName = "editPersonGoalResponse", targetNamespace = "http://soap.storage.finalproject.introsde/", className = "introsde.finalproject.storage.soap.EditPersonGoalResponse")
+    @Action(input = "http://soap.storage.finalproject.introsde/Storage/editPersonGoalRequest", output = "http://soap.storage.finalproject.introsde/Storage/editPersonGoalResponse")
+    public Goal editPersonGoal(
         @WebParam(name = "personId", targetNamespace = "")
         Long personId,
-        @WebParam(name = "goalId", targetNamespace = "")
-        Long goalId);
-
-    /**
-     * 
-     * @return
-     *     returns java.lang.String
-     */
-    @WebMethod
-    @WebResult(name = "result", targetNamespace = "")
-    @RequestWrapper(localName = "getRandomQuote", targetNamespace = "http://soap.storage.finalproject.introsde/", className = "introsde.finalproject.storage.soap.GetRandomQuote")
-    @ResponseWrapper(localName = "getRandomQuoteResponse", targetNamespace = "http://soap.storage.finalproject.introsde/", className = "introsde.finalproject.storage.soap.GetRandomQuoteResponse")
-    @Action(input = "http://soap.storage.finalproject.introsde/Storage/getRandomQuoteRequest", output = "http://soap.storage.finalproject.introsde/Storage/getRandomQuoteResponse")
-    public String getRandomQuote();
-
-    /**
-     * 
-     * @param measureType
-     * @param personId
-     * @param measureId
-     * @return
-     *     returns introsde.finalproject.soap.MeasureHistory
-     */
-    @WebMethod
-    @WebResult(name = "measurehistory", targetNamespace = "")
-    @RequestWrapper(localName = "readPersonMeasurement", targetNamespace = "http://soap.storage.finalproject.introsde/", className = "introsde.finalproject.storage.soap.ReadPersonMeasurement")
-    @ResponseWrapper(localName = "readPersonMeasurementResponse", targetNamespace = "http://soap.storage.finalproject.introsde/", className = "introsde.finalproject.storage.soap.ReadPersonMeasurementResponse")
-    @Action(input = "http://soap.storage.finalproject.introsde/Storage/readPersonMeasurementRequest", output = "http://soap.storage.finalproject.introsde/Storage/readPersonMeasurementResponse")
-    public MeasureHistory readPersonMeasurement(
-        @WebParam(name = "personId", targetNamespace = "")
-        Long personId,
-        @WebParam(name = "measureType", targetNamespace = "")
-        String measureType,
-        @WebParam(name = "measureId", targetNamespace = "")
-        Long measureId);
-
-    /**
-     * 
-     * @param reminderId
-     * @return
-     *     returns int
-     */
-    @WebMethod
-    @WebResult(name = "result", targetNamespace = "")
-    @RequestWrapper(localName = "removePersonReminder", targetNamespace = "http://soap.storage.finalproject.introsde/", className = "introsde.finalproject.storage.soap.RemovePersonReminder")
-    @ResponseWrapper(localName = "removePersonReminderResponse", targetNamespace = "http://soap.storage.finalproject.introsde/", className = "introsde.finalproject.storage.soap.RemovePersonReminderResponse")
-    @Action(input = "http://soap.storage.finalproject.introsde/Storage/removePersonReminderRequest", output = "http://soap.storage.finalproject.introsde/Storage/removePersonReminderResponse")
-    public int removePersonReminder(
-        @WebParam(name = "reminderId", targetNamespace = "")
-        Long reminderId);
+        @WebParam(name = "measure", targetNamespace = "")
+        String measure,
+        @WebParam(name = "type", targetNamespace = "")
+        String type,
+        @WebParam(name = "goal_u", targetNamespace = "")
+        Goal goalU);
 
     /**
      * 
@@ -397,6 +256,27 @@ public interface Storage {
 
     /**
      * 
+     * @param measureType
+     * @param personId
+     * @param measurehistoryU
+     * @return
+     *     returns introsde.finalproject.soap.MeasureHistory
+     */
+    @WebMethod
+    @WebResult(name = "measurehistory", targetNamespace = "")
+    @RequestWrapper(localName = "editPersonMeasurement", targetNamespace = "http://soap.storage.finalproject.introsde/", className = "introsde.finalproject.storage.soap.EditPersonMeasurement")
+    @ResponseWrapper(localName = "editPersonMeasurementResponse", targetNamespace = "http://soap.storage.finalproject.introsde/", className = "introsde.finalproject.storage.soap.EditPersonMeasurementResponse")
+    @Action(input = "http://soap.storage.finalproject.introsde/Storage/editPersonMeasurementRequest", output = "http://soap.storage.finalproject.introsde/Storage/editPersonMeasurementResponse")
+    public MeasureHistory editPersonMeasurement(
+        @WebParam(name = "personId", targetNamespace = "")
+        Long personId,
+        @WebParam(name = "measureType", targetNamespace = "")
+        String measureType,
+        @WebParam(name = "measurehistory_u", targetNamespace = "")
+        MeasureHistory measurehistoryU);
+
+    /**
+     * 
      * @param reminderI
      * @param personId
      * @return
@@ -412,6 +292,39 @@ public interface Storage {
         Long personId,
         @WebParam(name = "reminder_i", targetNamespace = "")
         Reminder reminderI);
+
+    /**
+     * 
+     * @param reminderU
+     * @param personId
+     * @return
+     *     returns introsde.finalproject.soap.Reminder
+     */
+    @WebMethod
+    @WebResult(name = "reminder", targetNamespace = "")
+    @RequestWrapper(localName = "editPersonReminder", targetNamespace = "http://soap.storage.finalproject.introsde/", className = "introsde.finalproject.storage.soap.EditPersonReminder")
+    @ResponseWrapper(localName = "editPersonReminderResponse", targetNamespace = "http://soap.storage.finalproject.introsde/", className = "introsde.finalproject.storage.soap.EditPersonReminderResponse")
+    @Action(input = "http://soap.storage.finalproject.introsde/Storage/editPersonReminderRequest", output = "http://soap.storage.finalproject.introsde/Storage/editPersonReminderResponse")
+    public Reminder editPersonReminder(
+        @WebParam(name = "personId", targetNamespace = "")
+        Long personId,
+        @WebParam(name = "reminder_u", targetNamespace = "")
+        Reminder reminderU);
+
+    /**
+     * 
+     * @param reminderId
+     * @return
+     *     returns int
+     */
+    @WebMethod
+    @WebResult(name = "result", targetNamespace = "")
+    @RequestWrapper(localName = "removePersonReminder", targetNamespace = "http://soap.storage.finalproject.introsde/", className = "introsde.finalproject.storage.soap.RemovePersonReminder")
+    @ResponseWrapper(localName = "removePersonReminderResponse", targetNamespace = "http://soap.storage.finalproject.introsde/", className = "introsde.finalproject.storage.soap.RemovePersonReminderResponse")
+    @Action(input = "http://soap.storage.finalproject.introsde/Storage/removePersonReminderRequest", output = "http://soap.storage.finalproject.introsde/Storage/removePersonReminderResponse")
+    public int removePersonReminder(
+        @WebParam(name = "reminderId", targetNamespace = "")
+        Long reminderId);
 
     /**
      * 
@@ -433,20 +346,107 @@ public interface Storage {
 
     /**
      * 
-     * @param personId
-     * @param date
+     * @param measureId
      * @return
-     *     returns java.util.List<introsde.finalproject.soap.Reminder>
+     *     returns int
      */
     @WebMethod
-    @WebResult(name = "reminder", targetNamespace = "")
-    @RequestWrapper(localName = "readPersonRemindersByDate", targetNamespace = "http://soap.storage.finalproject.introsde/", className = "introsde.finalproject.storage.soap.ReadPersonRemindersByDate")
-    @ResponseWrapper(localName = "readPersonRemindersByDateResponse", targetNamespace = "http://soap.storage.finalproject.introsde/", className = "introsde.finalproject.storage.soap.ReadPersonRemindersByDateResponse")
-    @Action(input = "http://soap.storage.finalproject.introsde/Storage/readPersonRemindersByDateRequest", output = "http://soap.storage.finalproject.introsde/Storage/readPersonRemindersByDateResponse")
-    public List<Reminder> readPersonRemindersByDate(
+    @WebResult(name = "result", targetNamespace = "")
+    @RequestWrapper(localName = "removePersonMeasurement", targetNamespace = "http://soap.storage.finalproject.introsde/", className = "introsde.finalproject.storage.soap.RemovePersonMeasurement")
+    @ResponseWrapper(localName = "removePersonMeasurementResponse", targetNamespace = "http://soap.storage.finalproject.introsde/", className = "introsde.finalproject.storage.soap.RemovePersonMeasurementResponse")
+    @Action(input = "http://soap.storage.finalproject.introsde/Storage/removePersonMeasurementRequest", output = "http://soap.storage.finalproject.introsde/Storage/removePersonMeasurementResponse")
+    public int removePersonMeasurement(
+        @WebParam(name = "measureId", targetNamespace = "")
+        Long measureId);
+
+    /**
+     * 
+     * @param goalId
+     * @param personId
+     * @return
+     *     returns introsde.finalproject.soap.Goal
+     */
+    @WebMethod
+    @WebResult(name = "goal", targetNamespace = "")
+    @RequestWrapper(localName = "readPersonGoal", targetNamespace = "http://soap.storage.finalproject.introsde/", className = "introsde.finalproject.storage.soap.ReadPersonGoal")
+    @ResponseWrapper(localName = "readPersonGoalResponse", targetNamespace = "http://soap.storage.finalproject.introsde/", className = "introsde.finalproject.storage.soap.ReadPersonGoalResponse")
+    @Action(input = "http://soap.storage.finalproject.introsde/Storage/readPersonGoalRequest", output = "http://soap.storage.finalproject.introsde/Storage/readPersonGoalResponse")
+    public Goal readPersonGoal(
         @WebParam(name = "personId", targetNamespace = "")
         Long personId,
-        @WebParam(name = "date", targetNamespace = "")
-        String date);
+        @WebParam(name = "goalId", targetNamespace = "")
+        Long goalId);
+
+    /**
+     * 
+     * @param personId
+     * @return
+     *     returns java.util.List<introsde.finalproject.soap.Goal>
+     */
+    @WebMethod
+    @WebResult(name = "goal-history", targetNamespace = "")
+    @RequestWrapper(localName = "readPersonGoals", targetNamespace = "http://soap.storage.finalproject.introsde/", className = "introsde.finalproject.storage.soap.ReadPersonGoals")
+    @ResponseWrapper(localName = "readPersonGoalsResponse", targetNamespace = "http://soap.storage.finalproject.introsde/", className = "introsde.finalproject.storage.soap.ReadPersonGoalsResponse")
+    @Action(input = "http://soap.storage.finalproject.introsde/Storage/readPersonGoalsRequest", output = "http://soap.storage.finalproject.introsde/Storage/readPersonGoalsResponse")
+    public List<Goal> readPersonGoals(
+        @WebParam(name = "personId", targetNamespace = "")
+        Long personId);
+
+    /**
+     * 
+     * @param measureType
+     * @param personId
+     * @param measureId
+     * @return
+     *     returns introsde.finalproject.soap.MeasureHistory
+     */
+    @WebMethod
+    @WebResult(name = "measurehistory", targetNamespace = "")
+    @RequestWrapper(localName = "readPersonMeasurement", targetNamespace = "http://soap.storage.finalproject.introsde/", className = "introsde.finalproject.storage.soap.ReadPersonMeasurement")
+    @ResponseWrapper(localName = "readPersonMeasurementResponse", targetNamespace = "http://soap.storage.finalproject.introsde/", className = "introsde.finalproject.storage.soap.ReadPersonMeasurementResponse")
+    @Action(input = "http://soap.storage.finalproject.introsde/Storage/readPersonMeasurementRequest", output = "http://soap.storage.finalproject.introsde/Storage/readPersonMeasurementResponse")
+    public MeasureHistory readPersonMeasurement(
+        @WebParam(name = "personId", targetNamespace = "")
+        Long personId,
+        @WebParam(name = "measureType", targetNamespace = "")
+        String measureType,
+        @WebParam(name = "measureId", targetNamespace = "")
+        Long measureId);
+
+    /**
+     * 
+     * @param measure
+     * @return
+     *     returns introsde.finalproject.soap.MeasureType
+     */
+    @WebMethod
+    @WebResult(name = "mType", targetNamespace = "")
+    @RequestWrapper(localName = "readMeasureType", targetNamespace = "http://soap.storage.finalproject.introsde/", className = "introsde.finalproject.storage.soap.ReadMeasureType")
+    @ResponseWrapper(localName = "readMeasureTypeResponse", targetNamespace = "http://soap.storage.finalproject.introsde/", className = "introsde.finalproject.storage.soap.ReadMeasureTypeResponse")
+    @Action(input = "http://soap.storage.finalproject.introsde/Storage/readMeasureTypeRequest", output = "http://soap.storage.finalproject.introsde/Storage/readMeasureTypeResponse")
+    public MeasureType readMeasureType(
+        @WebParam(name = "measure", targetNamespace = "")
+        String measure);
+
+    /**
+     * 
+     * @param content
+     * @param email
+     * @param subject
+     * @return
+     *     returns int
+     */
+    @WebMethod
+    @WebResult(name = "result", targetNamespace = "")
+    @RequestWrapper(localName = "sendPersonEmail", targetNamespace = "http://soap.storage.finalproject.introsde/", className = "introsde.finalproject.storage.soap.SendPersonEmail")
+    @ResponseWrapper(localName = "sendPersonEmailResponse", targetNamespace = "http://soap.storage.finalproject.introsde/", className = "introsde.finalproject.storage.soap.SendPersonEmailResponse")
+    @Action(input = "http://soap.storage.finalproject.introsde/Storage/sendPersonEmailRequest", output = "http://soap.storage.finalproject.introsde/Storage/sendPersonEmailResponse")
+    public int sendPersonEmail(
+        @WebParam(name = "email", targetNamespace = "")
+        String email,
+        @WebParam(name = "subject", targetNamespace = "")
+        String subject,
+        @WebParam(name = "content", targetNamespace = "")
+        String content);
 
 }

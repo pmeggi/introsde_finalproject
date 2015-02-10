@@ -421,6 +421,30 @@ public class myVirtualApp {
 		}
 		}
 		System.out.println();
+		System.out.println("---------------------------------------------------------");
+		System.out.println("     TODAY'S ACHIEVED GOALS             ");
+		System.out.println("----------------------------------------------------------");
+		
+		response=service.path("/persontrack/goals/"+p.getPersonId()).request().accept(media).get();
+		status=response.getStatus();
+		//System.out.println(status);
+		List<Goal1> gList = new ArrayList<Goal1>();
+
+		if(response.bufferEntity())
+			gList = response.readEntity(new GenericType<List<Goal1>>() {});
+		System.out.println();
+		if(rList!=null)
+		{
+		for(int i=0;i<gList.size();i++)
+		{
+			System.out.println("GOAL ID:"+gList.get(i).getGoalId());
+			System.out.println("MEASURE:"+gList.get(i).getMeasure());
+			System.out.println("VALUE:"+gList.get(i).getValue());
+			System.out.println("TYPE:"+gList.get(i).getType());
+			System.out.println("DATE CREATED:"+gList.get(i).getCreated());
+			System.out.println();
+		}
+		}
 		System.out.println("Enter to continue.........");
 		br.readLine();
 	}

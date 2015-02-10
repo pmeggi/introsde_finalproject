@@ -33,4 +33,13 @@ public class PersonTrackingResource {
     	return new PersonReminderTrack(uriInfo, request, id);
     
     }
+    
+    // REQUEST #2 - GET /persontrack/goals/{personId} - return todays achieved goals for {personId} 
+    @Path("goals/{personId}")
+    @Consumes(MediaType.APPLICATION_XML)
+    public PersonGoalTrack getGoalsTrack(@PathParam("personId") int id) throws IOException {
+   
+    	return new PersonGoalTrack(uriInfo, request, id);
+    
+    }
 }
