@@ -11,6 +11,8 @@ This project implements a composed web service application that allows an regist
 The application also allows to register person reminders (based on daily, weekly, monthly or specific date type). The tracking module of application informs the person about his/her reminders of day, gives some feedback on the progress toward achieving goals and based on that suggests some activities and persuasive strategies.
 
 ## Architecture
+The application is devolved according to the following architetcure:
+<img></img>
 
 ## Module Description
 
