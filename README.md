@@ -16,13 +16,16 @@ The application is devolved according to the following architetcure:
 
 ## Module Description
 The vLifeCoach Architecture is composed by following components:
-* **Data Services:**
+* **Data Services (implemented using SOAP Technology):**
   
-* **Business Logic Services:**
+* **Business Logic Services (implemented using REST Technology):**
 
-* **Process Centric Services:**
+* **Process Centric Services (implemented using REST Technology):**
+  myVirtualCoachService is a web service that serve all requests coming from console application myVirtualCoachApp and       redirecting the request to proper Business Logic Service.
+
 
 * **User Interface:**
+  myVirtualCoachApp is an client console java application which calls the Process Centric Service - vLifeCoachService to provide to the users with the application functionalities.
 
 
 
