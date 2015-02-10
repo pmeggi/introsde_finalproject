@@ -49,4 +49,4 @@ This project was developed by:<br><br>
 &nbsp;&nbsp;Matricula No. 136133<br>
 &nbsp;&nbsp;Email: pinki.meggi@gmail.com<br>
 
-[1]: https://github.com/pmeggi/introsde_finalproject/vLifeCoach_Documentation.pdf
+[1]: https://github.com/pmeggi/introsde_finalproject/blob/master/vLifeCoach_Documentation.pdf
