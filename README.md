@@ -17,21 +17,23 @@ The application is devolved according to the following architetcure:
 ## Module Description
 The vLifeCoach Architecture is composed by following components:
 * **Data Services (implemented using SOAP Technology):**
-
+  <br><br>**vLifeCoachPeopleDBService** is a web service that provides access to local database SQLITE where are recorded      all information related to Person profile, health and life measurements, goals and reminders records
+  <br>**vLifeCoachExternalService** is a web service that provides access to external datasources and services;
+  All these services receive requests from the **Storage Service - vLifeCoachStorageService**.
   
 * **Business Logic Services (implemented using REST Technology):**
-  <br>**vLifeCoachPeopleService** is a web service that serves all requests related to person and person measurements;
+  <br><br>**vLifeCoachPeopleService** is a web service that serves all requests related to person and person measurements;
   <br>**vLifeCoachGoalService** is a web service that serves all requests related to person goals;
   <br>**vLifeCoachTaskService** is a web service that serves all requests related to person reminders;
   <br>**vLifeCoachTrackingService** is a web service that serves all requests related to person goals/reminders tracking;
-  All these services receive requests from the Process Centric Service - vLifeCoachService and get data from the data layer    and processes it to send results back.
+  All these services receive requests from the Process Centric Service - vLifeCoachService and get data from the data layer    **Storage Service - vLifeCoachStorageService** and processes it to send results back.
 
 * **Process Centric Services (implemented using REST Technology):**
-  <br>**vLifeCoachService** is a web service that serve all requests coming from console application myVirtualCoachApp and       redirecting the request to proper Business Logic Service.
+  <br><br>**vLifeCoachService** is a web service that serve all requests coming from console application myVirtualCoachApp and redirecting the request to proper Business Logic Service.
 
 
 * **User Interface (Console Java Application):**
-  <br>**myVirtualCoachApp** is an client console java application which calls the Process Centric Service - vLifeCoachService to provide to the users with the application functionalities.
+  <br><br>**myVirtualCoachApp** is an client console java application which calls the Process Centric Service - vLifeCoachService to provide to the users with the application functionalities.
 
 
 
